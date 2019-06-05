@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>The wonderful classic shop</h1>
+    <form id="myContainer" method="post" action="/paypal/checkout"></form>
+    <script src="https://www.paypalobjects.com/api/checkout.js" async></script>
+    <script>
+      window.paypalCheckoutReady = function () {
+        paypal.checkout.setup('AcCajkQxi9sWNJ2oLpHO335qbzJc0Jxvi_N7l82jCveRgk7LhHnUYPt9OQ8IrUNzoAuf12xRPVZz1OY0', {
+            environment: 'sandbox',
+            container: 'myContainer'
+          });
+      };
+    </script>
+  </body>
+</html>
