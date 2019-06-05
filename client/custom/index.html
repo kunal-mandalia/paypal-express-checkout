@@ -27,7 +27,6 @@
               height: 55,
             },
             payment: (data, actions) => {
-              console.log(data, actions)
               return actions.request.post('/bff/create-cart')
                 .then(data => {
                   cartId = data.cartId
