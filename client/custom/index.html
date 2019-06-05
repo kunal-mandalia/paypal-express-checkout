@@ -1,9 +1,42 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    body {
+      font-family:Arial, Helvetica, sans-serif;
+      padding: 25px;
+    }
+    .container {
+      padding: 20px;
+      background-color: bisque;
+      max-width: 300px;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #order-status {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    img {
+      max-width: 80px;
+      padding: 20px;
+      border: solid 2px black;
+      border-radius: 50%;
+    }
+  </style>
   <body>
-    <h1>The wonderful custom bff shop</h1>
-    <div id='paypal-button'></div>
-    <div id='order-status'></div>
+    <h1>Complete your order</h1>
+    <div class="container">
+      <div id='order-status'>
+        <img id='train' src="train.png" />
+        <h3>1 x item @ £19.95</h3>
+        <h2>Total: £19.95</h2>
+      </div>
+      <div id='paypal-button'></div>
+    </div>
     <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
     <script>
       let token = null
@@ -44,7 +77,7 @@
                 .then(res => console.log("onAuthorize response", res))
                 .then(() => {
                   document.getElementById('paypal-button').style.display = 'none'
-                  document.getElementById('order-status').innerHTML = '<h2>Thank you for booking!</h2>'
+                  document.getElementById('order-status').innerHTML = '<img id="thumbsup" src="thumbsup.png" /><br /><h2>Booking confirmed!</h2>'
                 })
             },
             validate: (actions) => {
