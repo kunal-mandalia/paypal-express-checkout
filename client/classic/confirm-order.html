@@ -15,7 +15,7 @@
           body:new URLSearchParams(`token=${token}&PayerID=${PayerID}`)
         })
         .then(() => {
-          window.location.pathname = "confirmation.html"
+          window.location.pathname = "/classic/confirmation.html"
         })
         .catch(err => console.log("confirm order error", err))
       }

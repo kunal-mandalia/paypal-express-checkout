@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>The wonderful custom bff shop</h1>
+    <div id='paypal-button'></div>
+    <div id='order-status'></div>
+    <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
+    <script>
+      let token = null
+      let cartId
+
+      window.onload = function () {
+          paypal.Button.render({
+            authCode: token,
+            env: 'sandbox',
+            locale: 'en_GB',
+            client: {
+              sandbox: 'AcCajkQxi9sWNJ2oLpHO335qbzJc0Jxvi_N7l82jCveRgk7LhHnUYPt9OQ8IrUNzoAuf12xRPVZz1OY0'
+            },
+            commit: true,
+            style: {
+              label: 'pay',
+              size: 'responsive',
+              shape: 'rect',
+              tagline: false,
+              color: 'gold',
+              height: 55,
+            },
+            payment: (data, actions) => {
+              return actions.request.post('/bff/create-cart')
+                .then(data => {
+                  cartId = data.cartId
+                  token = data.token
+                })
+                .then(() => {
+                  return token
+                })
+            },
+            onAuthorize: (data, actions) => {
+              return actions.request.post('/bff/checkout', {
+                cartId,
+                PayerID: data.payerID
+              })
+                .then(res => console.log("onAuthorize response", res))
+                .then(() => {
+                  document.getElementById('paypal-button').style.display = 'none'
+                  document.getElementById('order-status').innerHTML = '<h2>Thank you for booking!</h2>'
+                })
+            },
+            validate: (actions) => {
+              console.log("validate", actions)
+              return true
+            }
+          }, '#paypal-button')
+      }
+    </script>
+  </body>
+</html>
