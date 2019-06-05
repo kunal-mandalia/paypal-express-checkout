@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Confirm order</h1>
+    <div id="order-details"></div>
+    <button onclick="confirmOrder()">Confirm</button>
+    <script>
+      let token = null
+      let PayerID = null
+
+      function confirmOrder() {
+        fetch(`/do-express-checkout-payment`, {
+          method: "POST",
+          mode: "no-cors",
+          body:new URLSearchParams(`token=${token}&PayerID=${PayerID}`)
+        })
+        .then(() => {
+          window.location.pathname = "confirmation.html"
+        })
+        .catch(err => console.log("confirm order error", err))
+      }
+
+      window.onload = function () {
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) == variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            console.log('Query variable %s not found', variable);
+        }
+
+         console.log("location", location)
+         token = getQueryVariable("token")
+         PayerID = getQueryVariable("PayerID")
+
+         console.log(token, PayerID)
+         if (token && PayerID) {
+           fetch(`/express-checkout-details?token=${token}&PayerID=${PayerID}`, { cors: 'no-cors'})
+            .then(data => data.json())
+            .then(d => document.getElementById('order-details').innerText = JSON.stringify(d))
+            .catch(err => document.getElementById('order-details').innerText = err.message)
+         }
+      }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "paypal-express-checkout",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "qs": "^6.7.0"
+  },
+  "scripts": {
+    "dev": "nodemon server/app.js"
+  }
+}
