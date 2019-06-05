@@ -9,7 +9,7 @@
       let PayerID = null
 
       function confirmOrder() {
-        fetch(`/do-express-checkout-payment`, {
+        fetch(`/paypal/do-express-checkout-payment`, {
           method: "POST",
           mode: "no-cors",
           body:new URLSearchParams(`token=${token}&PayerID=${PayerID}`)
@@ -33,13 +33,12 @@
             console.log('Query variable %s not found', variable);
         }
 
-         console.log("location", location)
          token = getQueryVariable("token")
          PayerID = getQueryVariable("PayerID")
 
          console.log(token, PayerID)
          if (token && PayerID) {
-           fetch(`/express-checkout-details?token=${token}&PayerID=${PayerID}`, { cors: 'no-cors'})
+           fetch(`/paypal/express-checkout-details?token=${token}&PayerID=${PayerID}`, { cors: 'no-cors'})
             .then(data => data.json())
             .then(d => document.getElementById('order-details').innerText = JSON.stringify(d))
             .catch(err => document.getElementById('order-details').innerText = err.message)
