@@ -28,7 +28,6 @@
     }
   </style>
   <body>
-    <h1>Complete your order</h1>
     <div class="container">
       <div id='order-status'>
         <img id='train' src="train.png" />
@@ -44,7 +43,6 @@
 
       window.onload = function () {
           paypal.Button.render({
-            authCode: token,
             env: 'sandbox',
             locale: 'en_GB',
             client: {
